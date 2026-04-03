@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fuoco Pizza — Wood-Fired Perfection</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Sans 3', sans-serif; color: #FAFAFA; background: #1A1A1A; overflow-x: hidden; }
+  h1, h2, h3, .display { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 2px; }
+
+  /* Nav */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 3rem; position: absolute; top: 0; left: 0; right: 0; z-index: 100; }
+  .logo { font-family: 'Bebas Neue'; font-size: 1.8rem; letter-spacing: 4px; color: #FF4500; }
+  nav .links { display: flex; gap: 2rem; }
+  nav a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; font-weight: 500; }
+  nav a:hover { color: #FF4500; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #1A1A1A 0%, #2D1B00 50%, #1A1A1A 100%);
+    text-align: center; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,69,0,0.15) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero .pizza-emoji { font-size: 6rem; display: block; margin-bottom: 1.5rem; animation: spin 20s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .hero h1 { font-size: 5rem; line-height: 0.95; margin-bottom: 1.5rem; letter-spacing: 6px; }
+  .hero h1 span { color: #FF4500; }
+  .hero p { font-size: 1.2rem; color: rgba(255,255,255,0.6); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+  .btn-fire {
+    display: inline-block; padding: 1rem 3rem; background: #FF4500; color: white;
+    text-decoration: none; font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 3px;
+    transition: all 0.3s; box-shadow: 0 4px 30px rgba(255,69,0,0.4);
+  }
+  .btn-fire:hover { transform: scale(1.05); box-shadow: 0 8px 40px rgba(255,69,0,0.6); background: #E03E00; }
+
+  /* Menu */
+  .menu { padding: 5rem 2rem; text-align: center; }
+  .menu h2 { font-size: 3rem; color: #FF4500; margin-bottom: 0.5rem; letter-spacing: 4px; }
+  .menu .sub { color: rgba(255,255,255,0.5); font-size: 1rem; margin-bottom: 3rem; text-transform: uppercase; letter-spacing: 2px; }
+  .pizza-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+  .pizza-card {
+    background: #222; border: 1px solid #333; padding: 2rem; text-align: center;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .pizza-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #FF4500; transform: scaleX(0); transition: transform 0.3s; }
+  .pizza-card:hover::before { transform: scaleX(1); }
+  .pizza-card:hover { background: #2A2A2A; transform: translateY(-4px); }
+  .pizza-card .p-emoji { font-size: 3rem; margin-bottom: 1rem; }
+  .pizza-card h3 { font-size: 1.5rem; letter-spacing: 2px; margin-bottom: 0.5rem; color: #FAFAFA; }
+  .pizza-card p { color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+  .pizza-card .price { font-family: 'Bebas Neue'; font-size: 2rem; color: #FF4500; letter-spacing: 1px; }
+
+  /* About */
+  .about {
+    padding: 5rem 2rem; display: flex; justify-content: center; gap: 4rem; align-items: center; flex-wrap: wrap;
+    background: linear-gradient(180deg, #1A1A1A, #111);
+  }
+  .about-img {
+    width: 350px; height: 350px; display: flex; align-items: center; justify-content: center;
+    font-size: 6rem; background: radial-gradient(circle, #2D1B00, #1A1A1A);
+    border: 2px solid #333;
+  }
+  .about-text { max-width: 450px; }
+  .about h2 { font-size: 2.5rem; color: #FF4500; margin-bottom: 1rem; letter-spacing: 3px; }
+  .about p { color: rgba(255,255,255,0.6); line-height: 1.9; margin-bottom: 1rem; }
+  .stats-row { display: flex; gap: 3rem; margin-top: 2rem; }
+  .stat .num { font-family: 'Bebas Neue'; font-size: 2.5rem; color: #FF4500; }
+  .stat .label { font-size: 0.8rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* CTA */
+  .cta {
+    padding: 5rem 2rem; text-align: center;
+    background: linear-gradient(135deg, #FF4500 0%, #CC3700 100%);
+  }
+  .cta h2 { font-size: 3rem; margin-bottom: 1rem; letter-spacing: 4px; }
+  .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
+  .btn-dark {
+    display: inline-block; padding: 1rem 3rem; background: #1A1A1A; color: #FF4500;
+    text-decoration: none; font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 3px;
+    transition: all 0.3s;
+  }
+  .btn-dark:hover { transform: scale(1.05); background: #000; }
+
+  footer { padding: 2rem; text-align: center; background: #111; color: rgba(255,255,255,0.3); font-size: 0.85rem; border-top: 1px solid #222; }
+  footer a { color: #FF4500; text-decoration: none; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .pizza-card { animation: fadeUp 0.5s ease-out backwards; }
+  .pizza-card:nth-child(2) { animation-delay: 0.1s; }
+  .pizza-card:nth-child(3) { animation-delay: 0.2s; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 3rem; }
+    .about { flex-direction: column; text-align: center; }
+    .about-img { width: 250px; height: 250px; }
+    nav .links { display: none; }
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="logo">FUOCO</div>
+    <div class="links">
+      <a href="#menu">Menu</a>
+      <a href="#story">Our Story</a>
+      <a href="#order">Order</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <span class="pizza-emoji">🍕</span>
+      <h1>Wood-Fired <span>Perfection</span></h1>
+      <p>Hand-stretched dough, San Marzano tomatoes, fresh mozzarella. Fired at 900°F in our imported Italian oven.</p>
+      <a href="#menu" class="btn-fire">See The Menu</a>
+    </div>
+  </section>
+
+  <section class="menu" id="menu">
+    <h2>Our Pizzas</h2>
+    <p class="sub">Crafted with obsession since 2015</p>
+    <div class="pizza-grid">
+      <div class="pizza-card">
+        <div class="p-emoji">🧀</div>
+        <h3>The Margherita</h3>
+        <p>San Marzano tomato, fior di latte, fresh basil, extra virgin olive oil. The original masterpiece.</p>
+        <div class="price">$16</div>
+      </div>
+      <div class="pizza-card">
+        <div class="p-emoji">🌶️</div>
+        <h3>Diavola</h3>
+        <p>Spicy sopressata, Calabrian chili, smoked mozzarella, honey drizzle. Heat meets sweet.</p>
+        <div class="price">$19</div>
+      </div>
+      <div class="pizza-card">
+        <div class="p-emoji">🍄</div>
+        <h3>Funghi Bianca</h3>
+        <p>Wild mushroom trio, truffle cream, fontina, thyme, shaved Parmigiano. No tomato, all flavor.</p>
+        <div class="price">$21</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="story">
+    <div class="about-img">🔥</div>
+    <div class="about-text">
+      <h2>Our Story</h2>
+      <p>Fuoco (Italian for "fire") was born from a backyard pizza oven and a dream. Chef Marco spent two years in Naples learning the art of Neapolitan pizza before bringing it home.</p>
+      <p>Every pie is hand-stretched, never rolled. Every ingredient is sourced with intention. Every bite should make you close your eyes.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="num">900°F</div><div class="label">Oven Temp</div></div>
+        <div class="stat"><div class="num">90s</div><div class="label">Cook Time</div></div>
+        <div class="stat"><div class="num">48hr</div><div class="label">Dough Rise</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="order">
+    <h2>Hungry Yet?</h2>
+    <p>Order online for pickup or find us at 789 Ember Lane.</p>
+    <a href="#" class="btn-dark">Order Now</a>
+  </section>
+
+  <footer>
+    <p>© 2026 Fuoco Pizza · 789 Ember Lane · <a href="#">hello@fuocopizza.com</a></p>
+  </footer>
+</body>
+</html>

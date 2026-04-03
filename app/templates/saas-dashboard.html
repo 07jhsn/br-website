@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowBoard — Project Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #0B1120; color: #94A3B8; overflow-x: hidden; }
+  h1, h2, h3 { color: #F1F5F9; }
+
+  /* Nav */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem; border-bottom: 1px solid rgba(148,163,184,0.1);
+    backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; background: rgba(11,17,32,0.8);
+  }
+  .logo { font-size: 1.3rem; font-weight: 700; color: #F1F5F9; display: flex; align-items: center; gap: 0.5rem; }
+  .logo-dot { width: 8px; height: 8px; background: #6366F1; border-radius: 2px; }
+  nav .links { display: flex; gap: 2rem; align-items: center; }
+  nav a { color: #64748B; text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+  nav a:hover { color: #F1F5F9; }
+  .btn-nav {
+    padding: 0.6rem 1.5rem; background: #6366F1; color: white; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.3s;
+  }
+  .btn-nav:hover { background: #5558E6; }
+
+  /* Hero */
+  .hero {
+    min-height: 90vh; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; text-align: center; padding: 4rem 2rem; position: relative;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px; background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+    border-radius: 50%; pointer-events: none;
+  }
+  .badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 1rem; background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); border-radius: 50px; font-size: 0.8rem; color: #818CF8; margin-bottom: 2rem; }
+  .badge .dot { width: 6px; height: 6px; background: #10B981; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .hero h1 { font-size: 4rem; line-height: 1.1; letter-spacing: -1.5px; max-width: 700px; margin-bottom: 1.5rem; }
+  .hero h1 .gradient { background: linear-gradient(135deg, #6366F1, #8B5CF6, #A78BFA); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { font-size: 1.15rem; max-width: 550px; line-height: 1.8; margin-bottom: 2.5rem; color: #64748B; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn-primary {
+    padding: 0.9rem 2rem; background: #6366F1; color: white; border-radius: 10px;
+    text-decoration: none; font-weight: 600; transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(99,102,241,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(99,102,241,0.4); }
+  .btn-ghost {
+    padding: 0.9rem 2rem; border: 1px solid #1E293B; color: #94A3B8; border-radius: 10px;
+    text-decoration: none; font-weight: 500; transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: #334155; color: #F1F5F9; }
+
+  /* Dashboard mockup */
+  .mockup { padding: 0 3rem 5rem; display: flex; justify-content: center; }
+  .mock-window {
+    max-width: 900px; width: 100%; background: #111827; border: 1px solid #1E293B;
+    border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .mock-bar { display: flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1rem; background: #0F172A; border-bottom: 1px solid #1E293B; }
+  .mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .mock-dot.r { background: #EF4444; } .mock-dot.y { background: #F59E0B; } .mock-dot.g { background: #10B981; }
+  .mock-body { padding: 1.5rem; display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; min-height: 350px; }
+  .mock-sidebar { display: flex; flex-direction: column; gap: 0.5rem; }
+  .mock-sidebar-item { padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; color: #64748B; cursor: pointer; transition: all 0.2s; }
+  .mock-sidebar-item.active { background: rgba(99,102,241,0.15); color: #818CF8; }
+  .mock-content { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .mock-card { background: #0F172A; border: 1px solid #1E293B; border-radius: 8px; padding: 1rem; }
+  .mock-card h4 { font-size: 0.75rem; color: #64748B; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; }
+  .mock-card .num { font-size: 1.8rem; font-weight: 700; color: #F1F5F9; }
+  .mock-card .change { font-size: 0.8rem; color: #10B981; margin-top: 0.25rem; }
+  .mock-card .bar-chart { display: flex; align-items: flex-end; gap: 3px; margin-top: 1rem; height: 50px; }
+  .mock-card .bar { width: 100%; border-radius: 2px; background: #6366F1; transition: height 0.5s; }
+
+  /* Features */
+  .features { padding: 5rem 2rem; text-align: center; }
+  .features h2 { font-size: 2.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
+  .features .sub { color: #64748B; font-size: 1.05rem; margin-bottom: 3rem; }
+  .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; }
+  .feat {
+    background: #111827; border: 1px solid #1E293B; border-radius: 12px; padding: 2rem;
+    text-align: left; transition: all 0.3s;
+  }
+  .feat:hover { border-color: #6366F1; transform: translateY(-4px); }
+  .feat .icon { width: 40px; height: 40px; background: rgba(99,102,241,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1rem; }
+  .feat h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .feat p { font-size: 0.9rem; line-height: 1.7; color: #64748B; }
+
+  /* CTA */
+  .cta-section { padding: 5rem 2rem; text-align: center; }
+  .cta-box {
+    max-width: 700px; margin: 0 auto; padding: 4rem; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.1));
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+  .cta-box h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+  .cta-box p { color: #64748B; margin-bottom: 2rem; font-size: 1.05rem; }
+
+  footer { padding: 2rem 3rem; text-align: center; border-top: 1px solid #1E293B; color: #475569; font-size: 0.8rem; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content, .mock-window, .feat { animation: fadeUp 0.6s ease-out backwards; }
+  .feat:nth-child(2) { animation-delay: 0.1s; }
+  .feat:nth-child(3) { animation-delay: 0.2s; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.3rem; }
+    .mock-body { grid-template-columns: 1fr; }
+    .mock-sidebar { flex-direction: row; overflow-x: auto; }
+    .mock-content { grid-template-columns: 1fr; }
+    nav .links { display: none; }
+  }
+</style>
+</head>
+<body>
+  <nav>
+    <div class="logo"><span class="logo-dot"></span> FlowBoard</div>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Docs</a>
+      <a href="#" class="btn-nav">Start Free</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge"><span class="dot"></span> Now in Public Beta</div>
+    <h1>Manage projects with <span class="gradient">clarity, not chaos</span></h1>
+    <p>FlowBoard gives your team one beautiful place to plan sprints, track tasks, and ship faster — without the bloat of legacy tools.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">Get Started Free</a>
+      <a href="#" class="btn-ghost">Watch Demo</a>
+    </div>
+  </section>
+
+  <section class="mockup">
+    <div class="mock-window">
+      <div class="mock-bar">
+        <div class="mock-dot r"></div><div class="mock-dot y"></div><div class="mock-dot g"></div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-sidebar">
+          <div class="mock-sidebar-item active">Dashboard</div>
+          <div class="mock-sidebar-item">Projects</div>
+          <div class="mock-sidebar-item">Team</div>
+          <div class="mock-sidebar-item">Reports</div>
+          <div class="mock-sidebar-item">Settings</div>
+        </div>
+        <div class="mock-content">
+          <div class="mock-card">
+            <h4>Tasks Done</h4>
+            <div class="num">247</div>
+            <div class="change">+12% this week</div>
+          </div>
+          <div class="mock-card">
+            <h4>Active Sprint</h4>
+            <div class="num">Sprint 14</div>
+            <div class="change">6 days left</div>
+          </div>
+          <div class="mock-card">
+            <h4>Team Velocity</h4>
+            <div class="num">89</div>
+            <div class="change">+5 pts avg</div>
+            <div class="bar-chart">
+              <div class="bar" style="height:40%"></div>
+              <div class="bar" style="height:55%"></div>
+              <div class="bar" style="height:45%"></div>
+              <div class="bar" style="height:70%"></div>
+              <div class="bar" style="height:65%"></div>
+              <div class="bar" style="height:80%"></div>
+              <div class="bar" style="height:90%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Everything your team needs</h2>
+    <p class="sub">Powerful features, zero learning curve.</p>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="icon">📋</div>
+        <h3>Kanban & Sprint Boards</h3>
+        <p>Drag-and-drop task management with custom columns, labels, and swimlanes for every workflow.</p>
+      </div>
+      <div class="feat">
+        <div class="icon">📊</div>
+        <h3>Real-Time Analytics</h3>
+        <p>Burndown charts, velocity tracking, and team workload views updated in real time.</p>
+      </div>
+      <div class="feat">
+        <div class="icon">🔗</div>
+        <h3>Integrations</h3>
+        <p>Connect with GitHub, Slack, Figma, and 50+ tools your team already uses.</p>
+      </div>
+      <div class="feat">
+        <div class="icon">🤖</div>
+        <h3>AI Task Suggestions</h3>
+        <p>Smart auto-assignments, priority detection, and deadline predictions powered by AI.</p>
+      </div>
+      <div class="feat">
+        <div class="icon">🔒</div>
+        <h3>Enterprise Security</h3>
+        <p>SOC 2 compliant, SSO, audit logs, and role-based permissions out of the box.</p>
+      </div>
+      <div class="feat">
+        <div class="icon">⚡</div>
+        <h3>Blazing Fast</h3>
+        <p>Built on modern infrastructure. Sub-100ms load times, no spinners, no waiting.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="cta-box">
+      <h2>Ready to ship faster?</h2>
+      <p>Join 2,000+ teams already using FlowBoard. Free for up to 10 users.</p>
+      <a href="#" class="btn-primary">Start Your Free Trial</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 FlowBoard Inc. · Privacy · Terms</p>
+  </footer>
+</body>
+</html>

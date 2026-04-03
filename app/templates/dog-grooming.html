@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paws & Bubbles Dog Grooming</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; color: #2D3436; overflow-x: hidden; }
+  h1, h2, h3 { font-family: 'Fredoka', sans-serif; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #FFECD2 0%, #FCB69F 50%, #FF9A9E 100%);
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 2rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: float 15s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translate(0,0); } 50% { transform: translate(30px, -20px); } }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero h1 { font-size: 3.5rem; color: #6C5CE7; margin-bottom: 1rem; line-height: 1.1; }
+  .hero p { font-size: 1.25rem; color: #636E72; margin-bottom: 2rem; line-height: 1.7; }
+  .hero .paw { font-size: 5rem; margin-bottom: 1rem; display: block; animation: bounce 2s ease infinite; }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+  .btn {
+    display: inline-block; padding: 1rem 2.5rem; background: #6C5CE7; color: white;
+    border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+    transition: all 0.3s; box-shadow: 0 4px 20px rgba(108,92,231,0.4);
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(108,92,231,0.5); background: #5B4CC4; }
+
+  /* Services */
+  .services { padding: 5rem 2rem; background: #FAFAFA; text-align: center; }
+  .services h2 { font-size: 2.5rem; color: #6C5CE7; margin-bottom: 0.5rem; }
+  .services .sub { color: #636E72; font-size: 1.1rem; margin-bottom: 3rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+  .card {
+    background: white; border-radius: 20px; padding: 2.5rem 2rem; text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: all 0.3s;
+  }
+  .card:hover { transform: translateY(-8px); box-shadow: 0 12px 40px rgba(108,92,231,0.15); }
+  .card .icon { font-size: 3rem; margin-bottom: 1rem; }
+  .card h3 { font-size: 1.3rem; color: #2D3436; margin-bottom: 0.5rem; }
+  .card p { color: #636E72; line-height: 1.6; font-size: 0.95rem; }
+  .card .price { font-family: 'Fredoka'; font-size: 1.5rem; color: #6C5CE7; margin-top: 1rem; font-weight: 600; }
+
+  /* Testimonials */
+  .testimonials { padding: 5rem 2rem; text-align: center; background: linear-gradient(180deg, #fff 0%, #F8F7FF 100%); }
+  .testimonials h2 { font-size: 2.5rem; color: #6C5CE7; margin-bottom: 3rem; }
+  .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; }
+  .review { background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 2px 15px rgba(0,0,0,0.05); text-align: left; }
+  .review .stars { color: #FDCB6E; font-size: 1.2rem; margin-bottom: 0.75rem; }
+  .review p { color: #636E72; line-height: 1.6; font-style: italic; margin-bottom: 1rem; }
+  .review .name { font-weight: 700; color: #2D3436; }
+
+  /* CTA */
+  .cta {
+    padding: 5rem 2rem; text-align: center;
+    background: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%); color: white;
+  }
+  .cta h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+  .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .btn-white {
+    display: inline-block; padding: 1rem 2.5rem; background: white; color: #6C5CE7;
+    border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 1.1rem;
+    transition: all 0.3s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+  /* Footer */
+  footer { padding: 2rem; text-align: center; background: #2D3436; color: #B2BEC3; font-size: 0.9rem; }
+  footer a { color: #6C5CE7; text-decoration: none; }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .card, .review { animation: fadeUp 0.6s ease-out forwards; }
+  .card:nth-child(2) { animation-delay: 0.15s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-content">
+      <span class="paw">🐾</span>
+      <h1>Paws & Bubbles Dog Grooming</h1>
+      <p>Where every pup gets the royal treatment! Professional grooming with love, belly rubs included at no extra charge.</p>
+      <a href="#services" class="btn">Book a Grooming Session</a>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <h2>Our Pampering Packages</h2>
+    <p class="sub">Every dog deserves to look and feel their best!</p>
+    <div class="cards">
+      <div class="card">
+        <div class="icon">🛁</div>
+        <h3>The Basic Bath</h3>
+        <p>Warm bath with premium shampoo, blow dry, ear cleaning, and nail trim. Perfect for a quick refresh!</p>
+        <div class="price">$35</div>
+      </div>
+      <div class="card">
+        <div class="icon">✂️</div>
+        <h3>Full Groom & Style</h3>
+        <p>Everything in Basic Bath plus a breed-specific haircut, teeth brushing, and paw balm treatment.</p>
+        <div class="price">$65</div>
+      </div>
+      <div class="card">
+        <div class="icon">👑</div>
+        <h3>The Royal Treatment</h3>
+        <p>The ultimate spa day! Full groom, blueberry facial, deshedding treatment, and a bandana to strut home in.</p>
+        <div class="price">$95</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>Happy Pups, Happy Parents</h2>
+    <div class="reviews">
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"My golden retriever has never looked so fluffy and handsome! The team is so gentle and patient."</p>
+        <div class="name">— Sarah & Cooper</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"They took my anxious rescue who hates baths and turned him into the happiest clean boy. Miracle workers!"</p>
+        <div class="name">— Mike & Biscuit</div>
+      </div>
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <p>"Best grooming in town. Fair prices, amazing results, and they always remember my poodle's name."</p>
+        <div class="name">— Lisa & Coco</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Ready for a Pawsome Makeover?</h2>
+    <p>Book online in seconds. Same-week appointments usually available!</p>
+    <a href="#" class="btn-white">Book Now — It's Easy!</a>
+  </section>
+
+  <footer>
+    <p>© 2026 Paws & Bubbles Dog Grooming · 123 Bark Avenue · <a href="#">hello@pawsandbubbles.com</a></p>
+  </footer>
+</body>
+</html>

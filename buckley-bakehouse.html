@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Buckley Bakehouse — Swadlincote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --brown:      #92400E;
+      --brown-dark: #78350F;
+      --amber:      #B45309;
+      --cream:      #FEF3C7;
+      --cream-dark: #FDE68A;
+      --white:      #FFFBF0;
+      --text:       #44240A;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cabin', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+    h1, h2, h3, .display { font-family: 'Amatic SC', cursive; }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: var(--brown);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .nav-logo {
+      font-family: 'Amatic SC', cursive; font-size: 1.7rem; font-weight: 700;
+      color: var(--cream); letter-spacing: 1px; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--cream-dark); text-decoration: none; font-size: 0.9rem;
+      font-weight: 500; letter-spacing: 0.5px; transition: color 200ms;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--cream); color: var(--brown-dark);
+      padding: 0.45rem 1.2rem; border-radius: 4px; font-weight: 700;
+      font-size: 0.85rem; text-decoration: none; transition: background 200ms;
+    }
+    .nav-cta:hover { background: var(--cream-dark); }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    .hero {
+      min-height: 88vh;
+      background: linear-gradient(160deg, var(--cream) 0%, #FEF9EC 60%, #FDE9A2 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    /* subtle wheat pattern overlay */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(180,83,9,0.07) 0%, transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(146,64,14,0.06) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    /* decorative arcs */
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+      width: 130%; height: 120px;
+      background: var(--white);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero-tag {
+      display: inline-block; background: var(--brown); color: var(--cream);
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; padding: 0.35rem 1rem; border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(3.2rem, 9vw, 5.5rem); font-weight: 700; line-height: 1.05;
+      color: var(--brown-dark); margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--amber); }
+    .hero p {
+      font-size: 1.1rem; line-height: 1.75; color: #6B3F1A;
+      max-width: 520px; margin: 0 auto 2.5rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--brown); color: var(--cream);
+      padding: 0.85rem 2rem; border-radius: 4px; font-weight: 700;
+      font-size: 1rem; text-decoration: none; transition: background 200ms, transform 200ms;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--brown-dark); transform: translateY(-2px); }
+    .btn-outline {
+      border: 2px solid var(--brown); color: var(--brown);
+      padding: 0.85rem 2rem; border-radius: 4px; font-weight: 700;
+      font-size: 1rem; text-decoration: none; transition: all 200ms; cursor: pointer;
+    }
+    .btn-outline:hover { background: var(--brown); color: var(--cream); }
+
+    /* ─── DIVIDER ─────────────────────────────────────────── */
+    .wave { width: 100%; display: block; line-height: 0; }
+
+    /* ─── SPECIALS ────────────────────────────────────────── */
+    .specials { padding: 5rem 1.5rem; background: var(--white); text-align: center; }
+    .section-tag {
+      display: inline-block; background: var(--cream-dark); color: var(--amber);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 0.3rem 0.9rem; border-radius: 2px;
+      margin-bottom: 0.75rem;
+    }
+    .specials h2 { font-size: clamp(2.4rem, 6vw, 3.5rem); color: var(--brown-dark); margin-bottom: 0.5rem; }
+    .specials .sub { color: #7C5039; font-size: 1.05rem; margin-bottom: 3.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .cards {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem; max-width: 1000px; margin: 0 auto;
+    }
+    .card {
+      background: var(--cream); border-radius: 8px; padding: 2.5rem 1.75rem;
+      text-align: center; border: 2px solid transparent;
+      transition: border-color 250ms, transform 250ms, box-shadow 250ms;
+      cursor: default;
+    }
+    .card:hover {
+      border-color: var(--amber); transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(146,64,14,0.12);
+    }
+    .card-icon {
+      width: 56px; height: 56px; margin: 0 auto 1.2rem;
+      background: var(--white); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .card-icon svg { width: 28px; height: 28px; stroke: var(--amber); stroke-width: 1.8; fill: none; }
+    .card h3 { font-size: 1.8rem; color: var(--brown-dark); margin-bottom: 0.5rem; }
+    .card p { font-size: 0.95rem; color: #6B3F1A; line-height: 1.65; }
+
+    /* ─── ABOUT ───────────────────────────────────────────── */
+    .about {
+      padding: 5rem 1.5rem;
+      background: linear-gradient(135deg, var(--brown) 0%, #7C2D12 100%);
+      color: var(--cream);
+    }
+    .about-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .about-img {
+      aspect-ratio: 4/5; border-radius: 8px;
+      background: linear-gradient(160deg, #9A3412, #6B1D00);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .about-img::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px,
+        transparent 1px, transparent 12px
+      );
+    }
+    .about-img-text {
+      position: relative; z-index: 1; text-align: center;
+    }
+    .about-img-text .big { font-family: 'Amatic SC'; font-size: 5rem; color: rgba(254,243,199,0.3); line-height: 1; }
+    .about-img-text .small { font-size: 0.85rem; color: rgba(254,243,199,0.5); letter-spacing: 2px; text-transform: uppercase; }
+    .about-text .section-tag { background: rgba(254,243,199,0.15); color: var(--cream-dark); }
+    .about-text h2 { font-size: clamp(2.2rem, 5vw, 3rem); margin-bottom: 1.25rem; line-height: 1.1; }
+    .about-text p { font-size: 1rem; line-height: 1.8; color: rgba(254,243,199,0.85); margin-bottom: 1rem; }
+    .about-text .quote {
+      border-left: 3px solid var(--amber); padding-left: 1.25rem;
+      margin-top: 1.75rem; font-family: 'Amatic SC'; font-size: 1.5rem;
+      color: var(--cream-dark); line-height: 1.4;
+    }
+
+    /* ─── MENU ITEMS ──────────────────────────────────────── */
+    .menu { padding: 5rem 1.5rem; background: var(--white); text-align: center; }
+    .menu h2 { font-size: clamp(2.4rem, 6vw, 3.5rem); color: var(--brown-dark); margin-bottom: 0.5rem; }
+    .menu .sub { color: #7C5039; font-size: 1.05rem; margin-bottom: 3.5rem; }
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; max-width: 900px; margin: 0 auto;
+    }
+    .menu-item {
+      background: var(--cream); border-radius: 6px; padding: 1.25rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-left: 4px solid var(--amber);
+      transition: transform 200ms, box-shadow 200ms; cursor: default;
+    }
+    .menu-item:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(146,64,14,0.1); }
+    .menu-item .name { font-weight: 600; color: var(--brown-dark); font-size: 0.95rem; }
+    .menu-item .desc { font-size: 0.8rem; color: #7C5039; margin-top: 0.15rem; }
+    .menu-item .price { font-family: 'Amatic SC'; font-size: 1.4rem; font-weight: 700; color: var(--amber); white-space: nowrap; margin-left: 1rem; }
+
+    /* ─── ORDER BANNER ────────────────────────────────────── */
+    .order-banner {
+      padding: 4rem 1.5rem; text-align: center;
+      background: linear-gradient(135deg, var(--amber) 0%, #92400E 100%);
+      color: var(--cream);
+    }
+    .order-banner h2 { font-size: clamp(2.4rem, 6vw, 3.5rem); margin-bottom: 0.75rem; }
+    .order-banner p { font-size: 1.05rem; opacity: 0.9; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .btn-cream {
+      background: var(--cream); color: var(--brown-dark);
+      padding: 0.9rem 2.2rem; border-radius: 4px; font-weight: 700;
+      font-size: 1rem; text-decoration: none; transition: all 200ms; display: inline-block; cursor: pointer;
+    }
+    .btn-cream:hover { background: #fff; transform: translateY(-2px); }
+
+    /* ─── CONTACT ─────────────────────────────────────────── */
+    .contact { padding: 5rem 1.5rem; background: var(--cream); }
+    .contact-inner {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    .contact h2 { font-size: clamp(2.4rem, 6vw, 3.5rem); color: var(--brown-dark); margin-bottom: 1rem; }
+    .contact p { color: #6B3F1A; line-height: 1.75; margin-bottom: 2rem; font-size: 1rem; }
+    .contact-details { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .contact-item-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--brown); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-item-icon svg { width: 18px; height: 18px; stroke: var(--cream); stroke-width: 2; fill: none; }
+    .contact-item-text .label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); margin-bottom: 0.15rem; }
+    .contact-item-text a, .contact-item-text span { font-size: 0.95rem; color: var(--brown-dark); text-decoration: none; transition: color 200ms; }
+    .contact-item-text a:hover { color: var(--amber); }
+    .map-placeholder {
+      background: linear-gradient(135deg, #D97706, var(--brown));
+      border-radius: 8px; aspect-ratio: 4/3;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.75rem; color: var(--cream); text-align: center; padding: 2rem;
+    }
+    .map-placeholder svg { width: 40px; height: 40px; stroke: var(--cream); fill: none; stroke-width: 1.5; }
+    .map-placeholder strong { font-family: 'Amatic SC'; font-size: 1.6rem; }
+    .map-placeholder span { font-size: 0.85rem; opacity: 0.8; }
+    .map-link {
+      margin-top: 0.5rem; background: rgba(255,255,255,0.2); color: var(--cream);
+      padding: 0.5rem 1.2rem; border-radius: 4px; font-size: 0.85rem;
+      text-decoration: none; transition: background 200ms; font-weight: 600; cursor: pointer;
+    }
+    .map-link:hover { background: rgba(255,255,255,0.35); }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer {
+      background: var(--brown-dark); color: rgba(254,243,199,0.7);
+      text-align: center; padding: 2.5rem 1.5rem; font-size: 0.85rem; line-height: 1.8;
+    }
+    footer .footer-logo { font-family: 'Amatic SC'; font-size: 2rem; color: var(--cream); font-weight: 700; margin-bottom: 0.5rem; }
+    footer a { color: var(--cream-dark); text-decoration: none; transition: color 200ms; }
+    footer a:hover { color: #fff; }
+
+    /* ─── ANIMATIONS ──────────────────────────────────────── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-content { animation: fadeUp 0.7s ease-out both; }
+    .card { animation: fadeUp 0.55s ease-out both; }
+    .card:nth-child(2) { animation-delay: 0.1s; }
+    .card:nth-child(3) { animation-delay: 0.2s; }
+    .card:nth-child(4) { animation-delay: 0.3s; }
+    .menu-item { animation: fadeUp 0.45s ease-out both; }
+    .menu-item:nth-child(even) { animation-delay: 0.07s; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img { aspect-ratio: 3/2; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; max-width: 280px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">The Buckley Bakehouse</a>
+    <ul class="nav-links">
+      <li><a href="#specials">What We Bake</a></li>
+      <li><a href="#about">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#contact">Find Us</a></li>
+    </ul>
+    <a href="tel:07817997428" class="nav-cta">Call to Order</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">Freshly Baked · Swadlincote, DE11</span>
+      <h1>Real Bread.<br><em>Proper</em> Bakes.</h1>
+      <p>
+        Hand-crafted with local ingredients, baked fresh every day.
+        From crusty sourdoughs to indulgent celebration cakes —
+        this is The Buckley Bakehouse.
+      </p>
+      <div class="hero-btns">
+        <a href="tel:07817997428" class="btn-primary">Order by Phone</a>
+        <a href="#menu" class="btn-outline">See What's Baking</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALS -->
+  <section class="specials" id="specials">
+    <span class="section-tag">What We Bake</span>
+    <h2>Made Fresh, Every Day</h2>
+    <p class="sub">No additives. No shortcuts. Just good ingredients, time, and a whole lot of love.</p>
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17h18M5 17V9a7 7 0 0114 0v8"/></svg>
+        </div>
+        <h3>Artisan Breads</h3>
+        <p>Sourdoughs, bloomers, seeded loaves and more — baked daily with slow-fermented dough for the perfect crust and crumb.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8 2 4 6 4 10c0 3.31 2.69 6 6 6v4h4v-4c3.31 0 6-2.69 6-6 0-4-4-8-8-8z"/></svg>
+        </div>
+        <h3>Pastries & Sweet Treats</h3>
+        <p>Buttery croissants, fruit danishes, almond tarts, scones — the perfect companion to your morning cuppa.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3>Celebration Cakes</h3>
+        <p>Birthdays, weddings, anniversaries — we create custom cakes that taste as beautiful as they look. Order in advance.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3>Made with Local Love</h3>
+        <p>We source flour, eggs, and dairy from trusted local suppliers in Derbyshire — keeping it fresh and keeping it community.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-img" role="img" aria-label="Illustration representing The Buckley Bakehouse">
+        <div class="about-img-text">
+          <div class="big">Est.<br>Swadlincote</div>
+          <div class="small">Derbyshire, UK</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <span class="section-tag">Our Story</span>
+        <h2>Baked with<br>Purpose & Pride</h2>
+        <p>The Buckley Bakehouse was born from a simple belief: that good bread should be honest, and good baking should bring people together.</p>
+        <p>Every loaf, every pastry, every cake starts with quality ingredients and proper technique — no cutting corners, no mass production. Just the craft of baking done right, right here in Swadlincote.</p>
+        <p>Whether you're picking up your weekly loaf, ordering a birthday cake, or just treating yourself to something sweet — you're always welcome here.</p>
+        <blockquote class="quote">"Made fresh this morning, baked with care."</blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <span class="section-tag">Sample Menu</span>
+    <h2>What's On the Counter</h2>
+    <p class="sub">Prices and availability may vary — call us or pop in to check today's bake!</p>
+    <div class="menu-grid">
+      <div class="menu-item">
+        <div>
+          <div class="name">Classic Sourdough Loaf</div>
+          <div class="desc">White or seeded, slow ferment</div>
+        </div>
+        <div class="price">£4.50</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">Butter Croissant</div>
+          <div class="desc">Freshly laminated, golden bake</div>
+        </div>
+        <div class="price">£1.80</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">Seeded Bloomer</div>
+          <div class="desc">Sunflower, sesame & pumpkin</div>
+        </div>
+        <div class="price">£3.80</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">Fruit Scone</div>
+          <div class="desc">Served with clotted cream</div>
+        </div>
+        <div class="price">£2.20</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">Almond & Raspberry Tart</div>
+          <div class="desc">Buttery pastry, frangipane</div>
+        </div>
+        <div class="price">£3.25</div>
+      </div>
+      <div class="menu-item">
+        <div>
+          <div class="name">Celebration Cake (custom)</div>
+          <div class="desc">Order 72 hrs in advance</div>
+        </div>
+        <div class="price">POA</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER BANNER -->
+  <section class="order-banner">
+    <h2>Want to Place an Order?</h2>
+    <p>Ring us or drop us an email — we'd love to hear what you're after. Custom orders always welcome!</p>
+    <a href="tel:07817997428" class="btn-cream">Call 07817 997428</a>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div>
+        <span class="section-tag">Find Us</span>
+        <h2>Come Say Hello</h2>
+        <p>We're based in Swadlincote, Derbyshire. Pop in for a fresh loaf, ring ahead to place an order, or drop us an email for custom cakes and enquiries.</p>
+        <div class="contact-details">
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <div class="label">Address</div>
+              <span>Swadlincote, Derbyshire, DE11 9AZ</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <div class="label">Mobile</div>
+              <a href="tel:07817997428">07817 997428</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <div class="label">Email</div>
+              <a href="mailto:buckley.bakehouse@outlook.com">buckley.bakehouse@outlook.com</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div>
+        <div class="map-placeholder" role="img" aria-label="Map showing location in Swadlincote, DE11 9AZ">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <strong>Swadlincote, Derbyshire</strong>
+          <span>DE11 9AZ · United Kingdom</span>
+          <a href="https://www.google.com/maps/search/DE11+9AZ" target="_blank" rel="noopener noreferrer" class="map-link">Open in Google Maps</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">The Buckley Bakehouse</div>
+    <p>
+      Swadlincote, Derbyshire, DE11 9AZ &nbsp;·&nbsp;
+      <a href="tel:07817997428">07817 997428</a> &nbsp;·&nbsp;
+      <a href="mailto:buckley.bakehouse@outlook.com">buckley.bakehouse@outlook.com</a>
+    </p>
+    <p style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.5;">© 2026 The Buckley Bakehouse. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
